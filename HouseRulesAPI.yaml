@@ -488,6 +488,10 @@ components:
                       type: integer
             noShowPenalty:
               type: string
+              enum:
+              - TOTAL_PRICE
+              - PARTIAL_PRICE
+              - NO_PENALTY
             releaseDays:
               type: object
               properties:
@@ -656,14 +660,18 @@ components:
                   type: integer
         noShowPenalty:
           type: string
-        bookingWindow:
+          enum:
+          - TOTAL_PRICE
+          - PARTIAL_PRICE
+          - NO_PENALTY
+        releaseDays:
           type: object
           properties:
-            standardAdvanceNoticeDays:
+            standard:
               type: integer
-            nonRefundableAdvanceNoticeDays:
+            nonRefundable:
               type: integer
-            sameDayCutoffTime:
+            releaseTime:
               type: string
         prePayment:
           type: object
@@ -674,7 +682,7 @@ components:
               type: string
               enum:
               - AFTER_RESERVATION
-              - AFTER_CANCELLATION_FEE_BEGINS
+              - AFTER_CANCELLATION_WINDOW
     
     # ===========================================
     # COMMON SCHEMAS
