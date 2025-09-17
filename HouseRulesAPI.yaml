@@ -11,7 +11,7 @@ paths:
   # ===========================================
   # MAIN PROPERTY ENDPOINT
   # ===========================================
-  /properties/{propertyId}:
+  /property/{propertyId}:
     get:
       tags:
         - Property Data
@@ -41,7 +41,7 @@ paths:
   # SECTION 1: DETAILS
   # Property operational details including check-in/out times and reception hours
   # ===========================================
-  /properties/{propertyId}/details:
+  /property/{propertyId}/details:
     get:
       tags:
         - Details
@@ -149,7 +149,7 @@ paths:
   # SECTION 2: SETTINGS
   # Property configuration settings including guest requirements, stay limits, and restrictions
   # ===========================================
-  /properties/{propertyId}/settings:
+  /property/{propertyId}/settings:
     get:
       tags:
         - Settings
@@ -257,7 +257,7 @@ paths:
   # SECTION 3: POLICIES
   # Property business policies including cancellation, booking window, and payment requirements
   # ===========================================
-  /properties/{propertyId}/policies:
+  /property/{propertyId}/policies:
     get:
       tags:
         - Policies
@@ -362,7 +362,7 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   tags:
-    - name: Property Rules
+    - name: Property Data
       description: Complete property house rules including all sections
     - name: Details
       description: Property operational details including check-in/out times and reception hours
