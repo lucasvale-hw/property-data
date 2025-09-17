@@ -377,7 +377,7 @@ components:
     HouseRules:
       type: object
       properties:
-        details:
+        settings:
           type: object
           properties:
             checkIn:
@@ -403,9 +403,6 @@ components:
                   type: string
             releaseTime:
               type: string
-        settings:
-          type: object
-          properties:
             selfChecking:
               type: boolean
             guestRequirements:
@@ -466,15 +463,12 @@ components:
                   type: string
                 to:
                   type: string
-            partyRestrictions:
-              type: object
-              properties:
-                partiesAllowed:
-                  type: string
-                  enum:
-                  - NOT_ALLOWED
-                  - ALLOWED_WITH_PRIOR_APPROVAL
-                  - ALLOWED
+            partiesAllowed:
+              type: string
+              enum:
+              - ALLOWED
+              - ALLOWED_WITH_PRIOR_APPROVAL
+              - NOT_ALLOWED
         policies:
           type: object
           properties:
@@ -485,8 +479,6 @@ components:
                   type: boolean
                 freeCancellationDays:
                   type: integer
-                noShowPenalty:
-                  type: string
                 gracePeriod:
                   type: object
                   properties:
@@ -494,26 +486,16 @@ components:
                       type: boolean
                     afterBookingHours:
                       type: integer
-                advanceCancellation:
-                  type: object
-                  properties:
-                    enabled:
-                      type: boolean
-                    beforeCheckIn:
-                      type: object
-                      properties:
-                        value:
-                          type: integer
-                        unit:
-                          type: string
-            bookingWindow:
+            noShowPenalty:
+              type: string
+            releaseDays:
               type: object
               properties:
-                standardAdvanceNoticeDays:
+                standard:
                   type: integer
-                nonRefundableAdvanceNoticeDays:
+                nonRefundable:
                   type: integer
-                sameDayCutoffTime:
+                releaseTime:
                   type: string
             prePayment:
               type: object
@@ -524,7 +506,7 @@ components:
                   type: string
                   enum:
                   - AFTER_RESERVATION
-                  - AFTER_CANCELLATION_FEE_BEGINS
+                  - AFTER_CANCELLATION_WINDOW
     
     # ===========================================
     # SECTION 1: DETAILS SCHEMAS
@@ -562,6 +544,29 @@ components:
     Settings:
       type: object
       properties:
+        checkIn:
+          type: object
+          properties:
+            from:
+              type: string
+            to:
+              type: string
+        checkOut:
+          type: object
+          properties:
+            from:
+              type: string
+            to:
+              type: string
+        receptionHours:
+          type: object
+          properties:
+            from:
+              type: string
+            to:
+              type: string
+        releaseTime:
+          type: string
         selfChecking:
           type: boolean
         guestRequirements:
@@ -622,15 +627,12 @@ components:
               type: string
             to:
               type: string
-        partyRestrictions:
-          type: object
-          properties:
-            partiesAllowed:
-              type: string
-              enum:
-              - NOT_ALLOWED
-              - ALLOWED_WITH_PRIOR_APPROVAL
-              - ALLOWED
+        partiesAllowed:
+          type: string
+          enum:
+          - ALLOWED
+          - ALLOWED_WITH_PRIOR_APPROVAL
+          - NOT_ALLOWED
     
     # ===========================================
     # SECTION 3: POLICIES SCHEMAS
@@ -645,8 +647,6 @@ components:
               type: boolean
             freeCancellationDays:
               type: integer
-            noShowPenalty:
-              type: string
             gracePeriod:
               type: object
               properties:
@@ -654,18 +654,8 @@ components:
                   type: boolean
                 afterBookingHours:
                   type: integer
-            advanceCancellation:
-              type: object
-              properties:
-                enabled:
-                  type: boolean
-                beforeCheckIn:
-                  type: object
-                  properties:
-                    value:
-                      type: integer
-                    unit:
-                      type: string
+        noShowPenalty:
+          type: string
         bookingWindow:
           type: object
           properties:
