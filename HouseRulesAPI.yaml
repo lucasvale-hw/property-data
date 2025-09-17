@@ -1,0 +1,705 @@
+openapi: 3.0.3
+info:
+  title: Property Data API
+  version: 1.0.0
+  description: |
+    API for managing house rules and policies organized into three main sections:
+    - Details: Property operational details including check-in/out times and reception hours
+    - Settings: Property configuration settings including guest requirements, stay limits, and restrictions  
+    - Policies: Property business policies including cancellation, booking window, and payment requirements
+paths:
+  # ===========================================
+  # MAIN PROPERTY ENDPOINT
+  # ===========================================
+  /properties/{propertyId}:
+    get:
+      tags:
+        - Property Data
+      summary: Get Complete Property House Rules
+      description: Retrieve all house rules for a property including details, settings, and policies
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HouseRules'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # ===========================================
+  # SECTION 1: DETAILS
+  # Property operational details including check-in/out times and reception hours
+  # ===========================================
+  /properties/{propertyId}/details:
+    get:
+      tags:
+        - Details
+      summary: Get Property Details
+      description: Retrieve property operational details including check-in/out times and reception hours
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Details'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Details
+      summary: Create Property Details
+      description: Create new operational details for a property
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Details'
+      responses:
+        '201':
+          description: Details created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Details'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Details already exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Details
+      summary: Update Property Details
+      description: Update existing operational details for a property
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Details'
+      responses:
+        '200':
+          description: Details updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Details'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # ===========================================
+  # SECTION 2: SETTINGS
+  # Property configuration settings including guest requirements, stay limits, and restrictions
+  # ===========================================
+  /properties/{propertyId}/settings:
+    get:
+      tags:
+        - Settings
+      summary: Get Property Settings
+      description: Retrieve property configuration settings including guest requirements, stay limits, and restrictions
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Settings
+      summary: Create Property Settings
+      description: Create new configuration settings for a property
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+      responses:
+        '201':
+          description: Settings created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Settings already exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Settings
+      summary: Update Property Settings
+      description: Update existing configuration settings for a property
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+      responses:
+        '200':
+          description: Settings updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # ===========================================
+  # SECTION 3: POLICIES
+  # Property business policies including cancellation, booking window, and payment requirements
+  # ===========================================
+  /properties/{propertyId}/policies:
+    get:
+      tags:
+        - Policies
+      summary: Get Property Policies
+      description: Retrieve property business policies including cancellation, booking window, and payment requirements
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policies'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Policies
+      summary: Create Property Policies
+      description: Create new business policies for a property
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Policies'
+      responses:
+        '201':
+          description: Policies created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policies'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Policies already exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Policies
+      summary: Update Property Policies
+      description: Update existing business policies for a property
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Policies'
+      responses:
+        '200':
+          description: Policies updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policies'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  tags:
+    - name: Property Rules
+      description: Complete property house rules including all sections
+    - name: Details
+      description: Property operational details including check-in/out times and reception hours
+    - name: Settings
+      description: Property configuration settings including guest requirements, stay limits, and restrictions
+    - name: Policies
+      description: Property business policies including cancellation, booking window, and payment requirements
+  schemas:
+    # ===========================================
+    # MAIN SCHEMA
+    # ===========================================
+    HouseRules:
+      type: object
+      properties:
+        details:
+          type: object
+          properties:
+            checkIn:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+            checkOut:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+            receptionHours:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+            releaseTime:
+              type: string
+        settings:
+          type: object
+          properties:
+            selfChecking:
+              type: boolean
+            guestRequirements:
+              type: object
+              properties:
+                guestIdRequired:
+                  type: boolean
+                guestPhoneNumberRequired:
+                  type: boolean
+            nights:
+              type: object
+              properties:
+                min:
+                  type: integer
+                max:
+                  type: integer
+            weekendMinimumStay:
+              type: integer
+            minimumNights:
+              type: array
+              items:
+                type: object
+                properties:
+                  from:
+                    type: string
+                  to:
+                    type: string
+                  nights:
+                    type: integer
+            daysInAdvance:
+              type: integer
+            smoking:
+              type: integer
+            curfew:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                from:
+                  type: string
+                to:
+                  type: string
+            children:
+              type: object
+              properties:
+                allowChildren:
+                  type: boolean
+                from:
+                  type: integer
+                to:
+                  type: integer
+            quietHours:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                from:
+                  type: string
+                to:
+                  type: string
+            partyRestrictions:
+              type: object
+              properties:
+                partiesAllowed:
+                  type: string
+                  enum:
+                  - NOT_ALLOWED
+                  - ALLOWED_WITH_PRIOR_APPROVAL
+                  - ALLOWED
+        policies:
+          type: object
+          properties:
+            cancellation:
+              type: object
+              properties:
+                freeCancellationEnabled:
+                  type: boolean
+                freeCancellationDays:
+                  type: integer
+                noShowPenalty:
+                  type: string
+                gracePeriod:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                    afterBookingHours:
+                      type: integer
+                advanceCancellation:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                    beforeCheckIn:
+                      type: object
+                      properties:
+                        value:
+                          type: integer
+                        unit:
+                          type: string
+            bookingWindow:
+              type: object
+              properties:
+                standardAdvanceNoticeDays:
+                  type: integer
+                nonRefundableAdvanceNoticeDays:
+                  type: integer
+                sameDayCutoffTime:
+                  type: string
+            prePayment:
+              type: object
+              properties:
+                required:
+                  type: boolean
+                effectiveFrom:
+                  type: string
+                  enum:
+                  - AFTER_RESERVATION
+                  - AFTER_CANCELLATION_FEE_BEGINS
+    
+    # ===========================================
+    # SECTION 1: DETAILS SCHEMAS
+    # ===========================================
+    Details:
+      type: object
+      properties:
+        checkIn:
+          type: object
+          properties:
+            from:
+              type: string
+            to:
+              type: string
+        checkOut:
+          type: object
+          properties:
+            from:
+              type: string
+            to:
+              type: string
+        receptionHours:
+          type: object
+          properties:
+            from:
+              type: string
+            to:
+              type: string
+        releaseTime:
+          type: string
+    
+    # ===========================================
+    # SECTION 2: SETTINGS SCHEMAS
+    # ===========================================
+    Settings:
+      type: object
+      properties:
+        selfChecking:
+          type: boolean
+        guestRequirements:
+          type: object
+          properties:
+            guestIdRequired:
+              type: boolean
+            guestPhoneNumberRequired:
+              type: boolean
+        nights:
+          type: object
+          properties:
+            min:
+              type: integer
+            max:
+              type: integer
+        weekendMinimumStay:
+          type: integer
+        minimumNights:
+          type: array
+          items:
+            type: object
+            properties:
+              from:
+                type: string
+              to:
+                type: string
+              nights:
+                type: integer
+        daysInAdvance:
+          type: integer
+        smoking:
+          type: integer
+        curfew:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            from:
+              type: string
+            to:
+              type: string
+        children:
+          type: object
+          properties:
+            allowChildren:
+              type: boolean
+            from:
+              type: integer
+            to:
+              type: integer
+        quietHours:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            from:
+              type: string
+            to:
+              type: string
+        partyRestrictions:
+          type: object
+          properties:
+            partiesAllowed:
+              type: string
+              enum:
+              - NOT_ALLOWED
+              - ALLOWED_WITH_PRIOR_APPROVAL
+              - ALLOWED
+    
+    # ===========================================
+    # SECTION 3: POLICIES SCHEMAS
+    # ===========================================
+    Policies:
+      type: object
+      properties:
+        cancellation:
+          type: object
+          properties:
+            freeCancellationEnabled:
+              type: boolean
+            freeCancellationDays:
+              type: integer
+            noShowPenalty:
+              type: string
+            gracePeriod:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                afterBookingHours:
+                  type: integer
+            advanceCancellation:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                beforeCheckIn:
+                  type: object
+                  properties:
+                    value:
+                      type: integer
+                    unit:
+                      type: string
+        bookingWindow:
+          type: object
+          properties:
+            standardAdvanceNoticeDays:
+              type: integer
+            nonRefundableAdvanceNoticeDays:
+              type: integer
+            sameDayCutoffTime:
+              type: string
+        prePayment:
+          type: object
+          properties:
+            required:
+              type: boolean
+            effectiveFrom:
+              type: string
+              enum:
+              - AFTER_RESERVATION
+              - AFTER_CANCELLATION_FEE_BEGINS
+    
+    # ===========================================
+    # COMMON SCHEMAS
+    # ===========================================
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code
+        details:
+          type: string
+          description: Additional error details
+      required:
+        - error
